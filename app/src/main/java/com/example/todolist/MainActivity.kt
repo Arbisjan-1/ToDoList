@@ -1,20 +1,14 @@
 package com.example.todolist
 
 import Task
-import TaskAdapter
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.ui.theme.ToDoListTheme
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TaskAdapter.OnTaskClickListener {
 
     private lateinit var editTextTask: EditText
     private lateinit var buttonAdd: Button
@@ -29,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         editTextTask = findViewById(R.id.editTextTask)
         buttonAdd = findViewById(R.id.buttonAdd)
         recyclerViewTasks = findViewById(R.id.recyclerViewTasks)
-        taskAdapter = TaskAdapter(tasks)
+        taskAdapter = TaskAdapter(tasks, this)
 
         recyclerViewTasks.adapter = taskAdapter
         recyclerViewTasks.layoutManager = LinearLayoutManager(this)
@@ -44,5 +38,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-}
 
+    override fun onEditTaskClick(task: Task) {
+        // Handle editing task
+        // Open a dialog or activity for editing the task
+    }
+
+    override fun onDeleteTaskClick(task: Task) {
+        // Handle deleting task
+        tasks.remove(task)
+        taskAdapter.notifyDataSetChanged()
+    }
+}
