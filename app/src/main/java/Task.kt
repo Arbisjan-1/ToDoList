@@ -1,1 +1,1 @@
-data class Task(val name: String)
+data class Task(var name: String)

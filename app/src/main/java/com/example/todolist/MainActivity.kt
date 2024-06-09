@@ -39,14 +39,18 @@ class MainActivity : AppCompatActivity(), TaskAdapter.OnTaskClickListener {
         }
     }
 
-    override fun onEditTaskClick(task: Task) {
-        // Handle editing task
-        // Open a dialog or activity for editing the task
+    override fun onEditTaskClick(position: Int) {
+        val task = tasks[position]
+        // Open a dialog to edit the task name
+        val editTaskDialog = EditTaskDialogFragment(task) { newTaskName ->
+            task.name = newTaskName
+            taskAdapter.notifyItemChanged(position)
+        }
+        editTaskDialog.show(supportFragmentManager, "EditTaskDialog")
     }
 
-    override fun onDeleteTaskClick(task: Task) {
-        // Handle deleting task
-        tasks.remove(task)
-        taskAdapter.notifyDataSetChanged()
+    override fun onDeleteTaskClick(position: Int) {
+        tasks.removeAt(position)
+        taskAdapter.notifyItemRemoved(position)
     }
 }

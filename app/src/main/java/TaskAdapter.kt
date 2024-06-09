@@ -14,8 +14,8 @@ class TaskAdapter(
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     interface OnTaskClickListener {
-        fun onEditTaskClick(task: Task)
-        fun onDeleteTaskClick(task: Task)
+        fun onEditTaskClick(position: Int)
+        fun onDeleteTaskClick(position: Int)
     }
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,14 +27,14 @@ class TaskAdapter(
             editButton.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener.onEditTaskClick(tasks[position])
+                    listener.onEditTaskClick(position)
                 }
             }
 
             deleteButton.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener.onDeleteTaskClick(tasks[position])
+                    listener.onDeleteTaskClick(position)
                 }
             }
         }
